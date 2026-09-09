@@ -1,3 +1,5 @@
+export const WORKERS_AI_MODEL = "@cf/google/gemma-4-26b-a4b-it";
+
 export function extractAiText(value: unknown): string {
   if (!value || typeof value !== "object") {
     return "The model response could not be rendered. Please retry.";

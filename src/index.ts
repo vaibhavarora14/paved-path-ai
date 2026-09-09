@@ -1,6 +1,6 @@
 import { DurableObject } from "cloudflare:workers";
 import { buildReviewPrompt, evaluateGuardrails, normalizeRequest, type ReviewRequest } from "./guardrails";
-import { extractAiText, sessionName } from "./model";
+import { extractAiText, sessionName, WORKERS_AI_MODEL } from "./model";
 
 interface Env {
   AI: Ai;
@@ -43,7 +43,7 @@ export class ReviewSession extends DurableObject<Env> {
 
       const input = normalizeRequest(JSON.parse(raw));
       const guardrails = evaluateGuardrails(input);
-      const aiResult = await this.env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+      const aiResult = await this.env.AI.run(WORKERS_AI_MODEL, {
         messages: [
           { role: "system", content: "Follow the review contract exactly." },
           { role: "user", content: buildReviewPrompt(input, guardrails) },

@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { extractAiText, sessionName } from "../src/model";
+import { extractAiText, sessionName, WORKERS_AI_MODEL } from "../src/model";
+
+describe("Workers AI configuration", () => {
+  it("uses the currently supported Cloudflare tutorial model", () => {
+    expect(WORKERS_AI_MODEL).toBe("@cf/google/gemma-4-26b-a4b-it");
+  });
+});
 
 describe("extractAiText", () => {
   it("supports Workers AI response objects", () => {
